@@ -8,9 +8,20 @@ export default function BackgroundMusic() {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // We start paused. Audio autoplay is usually blocked by browsers anyway.
     if (audioRef.current) {
       audioRef.current.volume = 0.4;
+      // Attempt to play automatically
+      const playPromise = audioRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.log("Autoplay prevented by browser:", error);
+            setIsPlaying(false); // Update state to show paused if blocked
+          });
+      }
     }
   }, []);
 
