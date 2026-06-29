@@ -17,7 +17,7 @@ export default function BirthdayMessage() {
               <p style={{ color: C.pink, fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(18px, 4vw, 24px)", marginBottom: 24, fontWeight: 600 }}>
                 Happy birthday, Juliet. 🎂
               </p>
-              <p style={{ marginBottom: 18, color: "#e2e8f0" }}>I'm not the best with words, but I wanted to do something real for you. Not just a message — a whole little world.</p>
+              <p style={{ marginBottom: 18, color: "#e2e8f0" }}>I'm not the best with words, but I wanted to do something real for you. Not just a message. You make me laugh almost every time, which is one reason I love you.</p>
               <p style={{ marginBottom: 18, color: "#e2e8f0" }}>You're not just someone I met online. You're my best friend. The daily talks, that one time we went 5 hours straight without even noticing — that stuff is rare, and I don't take it for granted.</p>
               <p style={{ marginBottom: 18, color: "#e2e8f0" }}>You've been there through a lot. You listen, you care, you make things lighter just by being around. That's not something everyone does.</p>
               <p style={{ color: C.pinkLight }}>This website is a birthday gift, yes — but more than that, it's proof that you matter to me. A lot. Happy birthday, bestie. 🩷</p>

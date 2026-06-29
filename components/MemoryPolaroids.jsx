@@ -65,13 +65,13 @@ const memoryCards = [
   },
   {
     image: "/memories/memory-10.png",
-    caption: "first to go in the horror movie 💀",
+    caption: "LMAO 😂",
     accentColor: "#c084fc",
     rotation: 2.2,
   },
   {
     image: "/memories/memory-11.png",
-    caption: "she didn't say it. we both knew. 💀",
+    caption: "we both knew 💀",
     accentColor: C.sky,
     rotation: -1.7,
   },
