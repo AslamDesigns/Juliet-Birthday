@@ -12,6 +12,7 @@ import MemoryPolaroids from "../components/MemoryPolaroids";
 import CreativeCards from "../components/CreativeCards";
 import GiftReveal from "../components/GiftReveal";
 import FinalCard from "../components/FinalCard";
+import BackgroundMusic from "../components/BackgroundMusic";
 
 function Footer() {
   return (
@@ -41,6 +42,7 @@ export default function Home() {
     <div style={{ minHeight: "100vh", background: C.bg, position: "relative", overflowX: "hidden" }}>
       <SparkleField />
       <GlobalDecor />
+      <BackgroundMusic />
       <AnimatePresence>
         {showIntro && <IntroScreen onDone={() => setShowIntro(false)} />}
       </AnimatePresence>
