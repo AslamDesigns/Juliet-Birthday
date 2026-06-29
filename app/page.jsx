@@ -29,7 +29,7 @@ function Footer() {
         Made with respect, gratitude, and too many floating petals.
       </p>
       <p style={{ color: "rgba(148,163,184,0.35)", fontSize: 11, marginTop: 8, fontFamily: "monospace" }}>
-        ✦ Juliet&apos;s Creative World · 2026 ✦
+        ✦ Just for Juliet · 2026 ✦
       </p>
     </footer>
   );

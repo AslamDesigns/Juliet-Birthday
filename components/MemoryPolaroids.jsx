@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { C } from "./tokens";
 import { Reveal } from "./shared";
 import { Flower } from "./FloatingDecor";
@@ -82,16 +83,18 @@ const memoryCards = [
   },
 ];
 
-function PolaroidCard({ card, index }) {
+function PolaroidCard({ card, index, onClick }) {
   return (
     <Reveal delay={index * 0.12} y={24}>
       <motion.div
         whileHover={{ scale: 1.04, rotate: 0, y: -6 }}
+        whileTap={{ scale: card.image ? 0.98 : 1 }}
+        onClick={() => { if (card.image) onClick(card); }}
         transition={{ type: "spring", stiffness: 260, damping: 20 }}
         style={{
           transform: `rotate(${card.rotation}deg)`,
           transformOrigin: "center bottom",
-          cursor: "default",
+          cursor: card.image ? "pointer" : "default",
         }}
       >
         <div style={{
@@ -174,8 +177,78 @@ function PolaroidCard({ card, index }) {
 }
 
 export default function MemoryPolaroids() {
+  const [selectedCard, setSelectedCard] = useState(null);
+
   return (
     <section style={{ padding: "60px 24px 80px", position: "relative", zIndex: 2 }}>
+      <AnimatePresence>
+        {selectedCard && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            onClick={() => setSelectedCard(null)}
+            style={{
+              position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+              backgroundColor: "rgba(0,0,0,0.8)",
+              backdropFilter: "blur(8px)",
+              zIndex: 100,
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: 24,
+              cursor: "zoom-out"
+            }}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                position: "relative",
+                maxWidth: "100%", maxHeight: "90vh",
+                background: "rgba(255,255,255,0.05)",
+                border: `1px solid ${selectedCard.accentColor}33`,
+                borderRadius: 16,
+                padding: 16,
+                boxShadow: `0 0 30px ${selectedCard.accentColor}33, 0 20px 40px rgba(0,0,0,0.5)`,
+                display: "flex", flexDirection: "column", alignItems: "center",
+                cursor: "default"
+              }}
+            >
+              <img
+                src={selectedCard.image}
+                alt={selectedCard.caption}
+                style={{
+                  maxWidth: "100%", maxHeight: "calc(90vh - 80px)",
+                  objectFit: "contain", borderRadius: 8, display: "block"
+                }}
+              />
+              <p style={{
+                marginTop: 16,
+                fontFamily: "'Lora', serif", fontSize: "clamp(14px, 3vw, 16px)",
+                color: "#e2e8f0", fontStyle: "italic", textAlign: "center"
+              }}>
+                {selectedCard.caption}
+              </p>
+              
+              <button 
+                onClick={() => setSelectedCard(null)}
+                style={{
+                  position: "absolute", top: -16, right: -16,
+                  width: 36, height: 36, borderRadius: "50%",
+                  background: C.bg, border: `1px solid ${selectedCard.accentColor}66`,
+                  color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
+                  cursor: "pointer", fontSize: 20, boxShadow: "0 4px 12px rgba(0,0,0,0.4)"
+                }}
+              >
+                ×
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div style={{ maxWidth: 900, margin: "0 auto" }}>
         <Reveal>
           <p style={{
@@ -211,7 +284,7 @@ export default function MemoryPolaroids() {
           padding: "10px 4px",
         }}>
           {memoryCards.map((card, i) => (
-            <PolaroidCard key={i} card={card} index={i} />
+            <PolaroidCard key={i} card={card} index={i} onClick={setSelectedCard} />
           ))}
         </div>
 
